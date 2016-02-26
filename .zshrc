@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/tmpjr/.oh-my-zsh
+export ZSH=/Users/ploskina/.oh-my-zsh
 
-source dnvm.sh
+export HOMEBREW_GITHUB_API_TOKEN=a5fa488066543113c06a152b00c85b4915379f15
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -58,6 +58,10 @@ plugins=(git symfony2)
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/tmpjr/go/bin:/Users/tmpjr/go/bin:/Users/tmpjr/.composer/vendor/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
+# Set architecture flags
+export ARCHFLAGS="-arch x86_64"
+# # Ensure user-installed binaries take precedence
+#export PATH=/usr/local/bin:$PATH
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,10 +92,27 @@ source $ZSH/oh-my-zsh.sh
 #alias tmux="TERM=screen-256color-bce tmux -2"
 alias tmux="tmux -2"
 alias ssh="TERM=xterm ssh"
-alias pgsci="pgcli -h 127.0.0.1 -p 5432 -U science science"
 
 #export TERM=xterm-256color
 # Base16 Shell
 #BASE16_SHELL="$HOME/.config/base16-shell/base16-monokai.dark.sh"
 #BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 #[[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
+
+# virtualenvwrapper values
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+export WORKON_HOME=/apps/env27/virtualenv
+export PROJECT_HOME=/apps/env27/project
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+
+source /usr/local/bin/virtualenvwrapper.sh
+
+#syspip to run commands against base python
+syspip(){
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}

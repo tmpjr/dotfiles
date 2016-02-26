@@ -26,12 +26,13 @@ Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'ervandew/supertab'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'davejlong/cf-utils.vim'
 "Plugin 'scrooloose/syntastic'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'jelera/vim-javascript-syntax'
 " Auto-compolete - must be compiled
 " from within ~/.vim/bundle/YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " Snips
 Plugin 'SirVer/ultisnips'
@@ -61,25 +62,10 @@ set mouse=nicr                   " Enable mouse scroll
 
 let mapleader=","                  " set leader to comma
 
-"Unite.vim settings
-"call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/\|app/cache/\|app/logs/')
-"nnoremap <C-p> :Unite file_rec/async<cr>
-"nnoremap <space>/ :Unite grep:.<cr>
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*,*/logs/*,*/web/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*,*/logs/*,*/web/*,*.svn/*
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'r'
-
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_quiet_messages = { "type": "style"  }
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -118,7 +104,6 @@ colorscheme PaperColor
 let g:airline_theme = "PaperColor"
 let g:airline_powerline_fonts = 1 
 let g:airline#extensions#tabline#enabled = 1
-"highlight Comment cterm=italic
 
 " Navigation shortcuts
 map <C-t> :TagbarToggle<CR>         " toggle tag bar
