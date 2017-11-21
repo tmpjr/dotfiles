@@ -1,88 +1,73 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'mileszs/ack.vim'
+Plug 'w0rp/ale'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'hdima/python-syntax'
+Plug 'ervandew/supertab'
+Plug 'alvan/vim-closetag'
+Plug 'edkolev/tmuxline.vim'
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'sheerun/vim-polyglot'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'posva/vim-vue'
+
+call plug#end()
+
 set nocompatible
-filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Set swp directory to ~/.vim/swp
+set directory=~/.vim/swp//
 
-" Plugins loaded by vundle
-" :PluginInstall
-Plugin 'gmarik/Vundle.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'majutsushi/tagbar'
-Plugin 'xolox/vim-lua-ftplugin'
-Plugin 'xolox/vim-misc'
-Plugin 'tpope/vim-fugitive'
-Plugin 'evidens/vim-twig'
-Plugin 'chriskempson/base16-vim'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'fatih/vim-go'
-Plugin 'hdima/python-syntax'
-Plugin 'bling/vim-airline'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'justinmk/vim-sneak'
-Plugin 'mxw/vim-jsx'
-Plugin 'pangloss/vim-javascript'
-Plugin 'ervandew/supertab'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'davejlong/cf-utils.vim'
-"Plugin 'scrooloose/syntastic'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'jelera/vim-javascript-syntax'
-" Auto-compolete - must be compiled
-" from within ~/.vim/bundle/YouCompleteMe
-"Plugin 'Valloric/YouCompleteMe'
-
-" Snips
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
-call vundle#end()                  " required
-
-filetype plugin indent on          " filetype detection and settings
-syntax on                          " syntax highlighting
+set encoding=utf-8
 set backspace=indent,eol,start     " let the backspace key work normally
 set hidden                         " hide unsaved buffers
 set incsearch                      " incremental search rules
+set hlsearch
+set ignorecase
+set smartcase
 set laststatus=2                   " not strictly necessary but good for consistency
 set ruler                          " shows line number in the status line
 set switchbuf=useopen,usetab       " better behavior for the quickfix window and :sb
 set tags=./tags;/,tags;/           " search tags files efficiently
 set wildmenu                       " better command line completion, shows a list of matches
-set nonu                           " toggle line numbers
-set tabstop=4                      " tabs to 4 
-set shiftwidth=4                   " amount of spaces when multi-line tabbing with >>
+set tabstop=2                      " tabs to 4 
+set shiftwidth=2                   " amount of spaces when multi-line tabbing with >>
 set expandtab                      " hitting tab key will produce tabstop amount of spaces
+set autoindent
+set copyindent
+set linebreak
+set wildmenu
 set laststatus=2                   " For Status line even with no split
 set clipboard=unnamed              " Make it so copy/paste to system works from vim
 set scrolloff=12                   " Start scrolling #n lines from top/bottom
 set nu                             " Show line numbers 
-set mouse=nicr                   " Enable mouse scroll
-
+set mouse=nicr                     " Enable mouse scroll
+set showtabline=1
 let mapleader=","                  " set leader to comma
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*,*/logs/*,*/web/*,*.svn/*
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'r'
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
+nmap ; :Buffers<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>a :Ag<CR>
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" Tell ack.vim to use ag (the Silver Searcher) instead
+let g:ackprg = 'ag --vimgrep'
+
+" Fix syntax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
 
 " vim-sneak to act like easymotion
 nmap s <Plug>Sneak_s
 let g:sneak#streak = 1
-
-"let g:jsx_ext_required = 0 " Allow JSX in normal JS files"
-let g:javascript_enable_domhtmlcss = 1
 
 " vim-go settings
 let g:go_highlight_functions = 1
@@ -90,22 +75,80 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
 " python syntax highlighting
 let python_highlight_all = 1
+let python_version_2 = 1
 
+let g:closetag_filenames = "*.html,*.xml,*.cfm,*.cfml,*.cfc,*.vue"
 
 " UI customizations
-"let base16colorspace=256
-set t_Co=256
+set guifont=Hack:12
 set background=dark
-let g:PaperColor_Dark_Override = { 'background' : '#3f3f3f', 'cursorline' : '#abcdef', 'matchparen' : '#3a3a3a', 'comment' : '#5f875f'  }
-colorscheme PaperColor
+let g:rehash256 = 1
+colorscheme molokai
+set t_Co=256
 
-let g:airline_theme = "PaperColor"
-let g:airline_powerline_fonts = 1 
-let g:airline#extensions#tabline#enabled = 1
+"colorscheme gruvbox
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 
 " Navigation shortcuts
 map <C-t> :TagbarToggle<CR>         " toggle tag bar
 map <C-l> :bnext<CR>                " switch to next buffer
 map <C-h> :bprevious<CR>            " switch to previous buffer
+
+" SmoothScroll shortcuts
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+autocmd User ALELint call s:MaybeUpdateLightline()
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
