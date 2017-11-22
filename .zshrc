@@ -7,7 +7,8 @@ export HOMEBREW_GITHUB_API_TOKEN=a5fa488066543113c06a152b00c85b4915379f15
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="theunraveler"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -45,7 +46,10 @@ ZSH_THEME="robbyrussell"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$HOME/.zsh-custom
+
+#BASE16_SHELL=$HOME/.config/base16-shell/
+#[ -n "$PS1"   ] && [ -s $BASE16_SHELL/profile_helper.sh   ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -56,7 +60,6 @@ plugins=(git symfony2)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/tmpjr/go/bin:/Users/tmpjr/go/bin:/Users/tmpjr/.composer/vendor/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 # Set architecture flags
 export ARCHFLAGS="-arch x86_64"
@@ -90,13 +93,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #alias tmux="TERM=screen-256color-bce tmux -2"
-alias tmux="tmux -2"
+#alias tmux="tmux -2"
 alias ssh="TERM=xterm ssh"
+alias dc="docker-compose"
 
-#export TERM=xterm-256color
+export CLICOLOR=1
+export TERM=xterm-256color
+
 # Base16 Shell
-#BASE16_SHELL="$HOME/.config/base16-shell/base16-monokai.dark.sh"
-#BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+#BASE16_SHELL="$HOME/.vim/bundle/vim-hybrid-material/base16-material/base16-material.dark.sh"
 #[[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
 # virtualenvwrapper values
@@ -116,3 +121,60 @@ source /usr/local/bin/virtualenvwrapper.sh
 syspip(){
    PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
+
+#### My aliases
+alias cdgcax="cd ~/svn_export/webdev/gca/branches/v2.1"
+alias cdgcal="cd ~/svn_local/webdev/gca/branches/v2.1"
+
+# begin Oracle config
+export ORACLE_HOME=/usr/local/lib/oracle/instantclient_12_1
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH
+SQL_PATH=/usr/local/lib/oracle/instantclient_12_1:${SQL_PATH}
+export SQL_PATH
+export FORCE_RPATH=1
+# end Oracle config
+
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$ORACLE_HOME"
+#export PATH="/Users/ploskina/bin/Sencha/Cmd/6.1.2.15:$PATH"
+export PATH="/Users/ploskina/bin:$PATH"
+export PATH="/Users/ploskina/golang/bin:$PATH"
+
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
+
+# GOLANG
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+#export PATH="/usr/local/bin/Sencha/Cmd:$PATH"
+export PATH="/Users/ploskina/bin/Sencha/Cmd:$PATH"
+export PATH="${PATH}:$(yarn global bin)"
+
+export SVN_EDITOR="/usr/local/bin/vi"
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /Users/ploskina/.yarn-config/global/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/ploskina/.yarn-config/global/node_modules/tabtab/.completions/electron-forge.zsh
+
+alias sv="sudo -u ploskina vim"
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+  source /usr/local/opt/fzf/shell/key-bindings.zsh
+  source /usr/local/opt/fzf/shell/completion.zsh
+fi
+
+export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='
+  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+  '
